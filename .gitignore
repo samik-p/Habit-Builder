@@ -1,24 +1,33 @@
-# Compiled class file
-*.class
+# Node.js dependencies
+/node_modules
 
-# Log file
+# Build output
+/dist
+
+# Caches
+/.vite
+.pnpm-store/
+/pnpm-lock.yaml
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# BlueJ files
-*.ctxt
+# Editor and IDE files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+# System files
+.DS_Store
+Thumbs.db
