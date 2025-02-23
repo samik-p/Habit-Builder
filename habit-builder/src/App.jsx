@@ -4,12 +4,14 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 import FloatingActionButtonSize from './components/AddIcon'
+import NavTabs from './components/NavTab'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
+      <NavTabs></NavTabs>
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
