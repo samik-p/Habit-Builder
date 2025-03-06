@@ -61,7 +61,13 @@ export default function MenuAppBar() {
             <HideAppBar>
 
                 <AppBar>
-                    <Toolbar>
+                    <Toolbar
+                        sx={{
+                            width: "100%",
+                            maxWidth: 1280,
+                            mx: "auto"
+                        }}
+                    >
                         <TemporaryDrawer></TemporaryDrawer>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                             Habit-Builder
@@ -101,6 +107,6 @@ export default function MenuAppBar() {
                     </Toolbar>
                 </AppBar>
             </HideAppBar>
-        </Box>
+        </Box >
     );
 }
