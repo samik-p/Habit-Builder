@@ -5,13 +5,16 @@ import './App.css'
 
 import FloatingActionButtonSize from './components/AddIcon'
 import NavTabs from './components/NavTab'
+import MenuAppBar from './components/MUI-AppBar'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <NavTabs></NavTabs>
+      <div id="navbar">
+        <MenuAppBar></MenuAppBar>
+      </div>
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
