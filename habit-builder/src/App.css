@@ -15,13 +15,12 @@
 }
 
 #addButton {
-  width: 55px;
-  height: 55px;
-  position: fixed;
+  margin: 0px;
+  top: auto;
+  right: 20px;
   bottom: 20px;
-  left: 20px;
-  background: red;
-  border: 0;
+  left: auto;
+  position: fixed;
 }
 
 .logo {
