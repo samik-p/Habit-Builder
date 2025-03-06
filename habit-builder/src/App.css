@@ -9,6 +9,20 @@
   min-width: 100vw;
 }
 
+#content {
+  margin-top: 5vh;
+  height: 100vh;
+}
+
+#addButton {
+  margin: 0px;
+  top: auto;
+  right: 20px;
+  bottom: 20px;
+  left: auto;
+  position: fixed;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

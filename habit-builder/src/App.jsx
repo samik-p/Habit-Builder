@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-import FloatingActionButtonSize from './components/AddIcon'
+import FloatingActionButtonSize from './components/MUI-AddIcon'
 import NavTabs from './components/NavTab'
 import MenuAppBar from './components/MUI-AppBar'
 import OutlinedCard from './components/Card'
@@ -16,7 +16,7 @@ function App() {
       <div id="navbar">
         <MenuAppBar></MenuAppBar>
       </div>
-      <div>
+      <div id="content">
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
@@ -40,8 +40,9 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
 
-      <FloatingActionButtonSize></FloatingActionButtonSize>
-
+      <div id="addButton">
+        <FloatingActionButtonSize></FloatingActionButtonSize>
+      </div>
     </>
   )
 }
