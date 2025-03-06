@@ -6,6 +6,7 @@ import './App.css'
 import FloatingActionButtonSize from './components/MUI-AddIcon'
 import NavTabs from './components/NavTab'
 import MenuAppBar from './components/MUI-AppBar'
+import OutlinedCard from './components/Card'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -24,6 +25,9 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+      <div className='task'>
+        <OutlinedCard></OutlinedCard>
+      </div>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
