@@ -6,30 +6,44 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-  >
-    •
-  </Box>
-);
 
 const card = (
   <React.Fragment>
     <CardContent>
-      <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-        Word of the Day
-      </Typography>
-      <Typography variant="h5" component="div">
-        be{bull}nev{bull}o{bull}lent
-      </Typography>
-      <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>adjective</Typography>
-      <Typography variant="body2">
-        well meaning and kindly.
-        <br />
-        {'"a benevolent smile"'}
-      </Typography>
+      <Box
+        sx={{
+          bgcolor: '#0362fc',
+          height: "10px",
+          // marginRight: window.innerWidth * 0.01,
+          // marginLeft: window.innerWidth * 0.01,
+          width: "10px"
+
+        }}
+      >
+
+      </Box>
+      <Box
+        sx={{
+          bgcolor: '#c390f0',
+          height: "10px",
+          width: "10px"
+        }}
+      >
+      </Box>
+      <Box
+        sx={{
+          bgcolor: '#f23860',
+          height: "10px",
+          width: "10px"
+
+        }}
+      >
+
+      </Box>
+      <button>
+
+      </button>
+
     </CardContent>
     <CardActions>
       <Button size="small">Learn More</Button>
@@ -39,7 +53,7 @@ const card = (
 
 export default function OutlinedCard() {
   return (
-    <Box sx={{ minWidth: (window.innerWidth * 0.50), marginRight: window.innerWidth * 0.01, marginLeft: window.innerWidth * 0.01}}>
+    <Box sx={{ minHeight: (window.innerHeight * 0.12), minWidth: (window.innerWidth * 0.50), marginRight: window.innerWidth * 0.01, marginLeft: window.innerWidth * 0.01 }}>
       <Card variant="outlined">{card}</Card>
     </Box>
   );
