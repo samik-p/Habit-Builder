@@ -5,55 +5,54 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import './Card.css'
 
 
 const card = (
   <React.Fragment>
     <CardContent>
-      <Box
-        sx={{
-          bgcolor: '#0362fc',
-          height: "10px",
-          // marginRight: window.innerWidth * 0.01,
-          // marginLeft: window.innerWidth * 0.01,
-          width: "10px"
+      <div className="box">
+        <Box
+          sx={{
+            bgcolor: '#0362fc',
+            height: "10vh",
+            width: "30vw"
 
-        }}
-      >
 
-      </Box>
-      <Box
-        sx={{
-          bgcolor: '#c390f0',
-          height: "10px",
-          width: "10px"
-        }}
-      >
-      </Box>
-      <Box
-        sx={{
-          bgcolor: '#f23860',
-          height: "10px",
-          width: "10px"
+          }}
+        >
 
-        }}
-      >
+        </Box>
+        <Box
+          sx={{
+            bgcolor: '#c390f0',
+            height: "10vh",
+            width: "10vw"
+          }}
+        >
+        </Box>
+        <Box
+          sx={{
+            bgcolor: '#f23860',
+            height: "10vh",
+            width: "50vw"
 
-      </Box>
-      <button>
+          }}
+        >
 
-      </button>
-
+        </Box>
+        <CardActions>
+          <Button size="small">Learn More</Button>
+        </CardActions>
+      </div>
     </CardContent>
-    <CardActions>
-      <Button size="small">Learn More</Button>
-    </CardActions>
+
   </React.Fragment>
 );
 
 export default function OutlinedCard() {
   return (
-    <Box sx={{ minHeight: (window.innerHeight * 0.12), minWidth: (window.innerWidth * 0.50), marginRight: window.innerWidth * 0.01, marginLeft: window.innerWidth * 0.01 }}>
+    <Box sx={{ maxHeight: "15vh", width: "80vw", maxWidth: "1920px" }}>
       <Card variant="outlined">{card}</Card>
     </Box>
   );
