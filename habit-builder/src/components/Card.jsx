@@ -21,6 +21,18 @@ const card = (
 
           }}
         >
+          <div className='box1'>
+            <Box
+              sx={{
+                bgcolor: '#ab1a1f',
+                height: "4.5vh",
+                width: "2.5vw"
+
+              }}
+            >
+            </Box>
+          </div>
+
 
         </Box>
         <Box
@@ -38,6 +50,7 @@ const card = (
             width: "50vw"
 
           }}
+
         >
 
         </Box>
