@@ -1,5 +1,5 @@
 import datetime as dt
-from .habit import Habit
+from habit import Habit
 
 
 class HabitTracker:
@@ -23,28 +23,28 @@ class HabitTracker:
     def removeHabit(self, idx):
         if idx < 1 or idx > len(self.habits):
             print(f"[-] removeHabit -- Invalid index: {idx}")
-            pass
+            return
 
         self.habits.pop(idx - 1)
 
     def toggleHabitDate(self, idx, y, m, d):
         if idx < 1 or idx > len(self.habits):
             print(f"[-] toggleHabitDate -- Invalid index: {idx}")
-            pass
+            return
 
         self.habits[idx - 1].toggleDate(y, m, d)
 
     def toggleHabitToday(self, idx):
         if idx < 1 or idx > len(self.habits):
             print(f"[-] toggleHabitToday -- Invalid index: {idx}")
-            pass
+            return
 
         self.habits[idx - 1].toggleToday()
 
     def updateHabitTitle(self, idx, title):
         if idx < 1 or idx > len(self.habits):
             print(f"[-] updateHabitTitle -- Invalid index: {idx}")
-            pass
+            return
 
         self.habits[idx].updateTitle(title)
 
