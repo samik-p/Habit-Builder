@@ -3,9 +3,14 @@ from functools import singledispatchmethod
 
 
 class Habit:
-    def __init__(self, title, calendar=dict()):
+    def __init__(self, title, calendar=None):
         self.title = title
-        self.calendar = calendar  # {year: {month: {day}}}
+
+        # {year: {month: {day}}}
+        self.calendar = {}
+        if calendar:
+            self.updateCalendar(calendar)
+
         self.streak = 0
         self.updateStreak()
 
@@ -14,6 +19,12 @@ class Habit:
 
     def toDict(self):
         return {"title": self.title, "calendar": self.calendar}
+
+    def updateCalendar(self, calendar):
+        for y in calendar:
+            for m in calendar[y]:
+                for d in calendar[y][m]:
+                    self.toggleDate(int(y), int(m), int(d))
 
     def toggleDate(self, y, m, d):
         if self.isDateInCalendar(y, m, d):
@@ -32,7 +43,6 @@ class Habit:
                 self.calendar[y] = {m: {d}}
 
         self.updateStreak()
-        print(self)
 
     def toggleToday(self):
         today = dt.date.today()
@@ -63,10 +73,19 @@ class Habit:
         self.title = title
 
 
+def printList(l):
+    for e in l:
+        print("\t" + str(e))
+
+
 if __name__ == "__main__":
-    test = Habit("placeholder")
-    print(test)
+
+    test = Habit("Coding")
+    test2 = Habit("Jogging")
+    habitList = [test, test2]
+
+    printList(habitList)
     test.toggleToday()
     test.toggleDate(2025, 3, 11)
     test.toggleToday()
-    print(test)
+    printList(habitList)

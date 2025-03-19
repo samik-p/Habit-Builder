@@ -4,8 +4,11 @@ from habit import Habit
 
 
 class HabitTracker:
-    def __init__(self, habits=[]):
+    def __init__(self, habits=None):
         # NOTE: linked list might be better (do some research)
+        if not habits:
+            habits = []
+
         self.habits = habits
 
     def __str__(self):
@@ -73,11 +76,7 @@ def load_dict_from_json(filename):
 
         habit_list = []
         for entry in data["habits"]:
-            new_habit = Habit(entry["title"])
-            for y in entry["calendar"]:
-                for m in entry["calendar"][y]:
-                    for d in entry["calendar"][y][m]:
-                        new_habit.toggleDate(int(y), int(m), int(d))
+            new_habit = Habit(entry["title"], entry["calendar"])
             habit_list.append(new_habit)
 
         return HabitTracker(habit_list)
@@ -88,20 +87,18 @@ if __name__ == "__main__":
     test.addHabit("Jogging")
     test.addHabit("Coding")
     print(test)
-    print("BREAKPOINT")
     # print(test)
     # test.removeHabit(0)
-    # test.toggleHabitToday(7)
-    # test.toggleHabitDate(1, 2025, 3, 17)
+    test.toggleHabitToday(2)
+    test.toggleHabitDate(1, 2025, 3, 17)
     test.toggleHabitToday(1)
-    print("BREAKPOINT")
     print(test)
 
     test_dict = test.toDict()
-    # print(test_dict)
-    json_string = json.dumps(test_dict, default=convert_to_serializable)
-    print(json_string)
     save_dict_to_json(test_dict, "test.json")
+
+    # json_string = json.dumps(test_dict, default=convert_to_serializable)
+    # print(json_string)
 
     test2 = load_dict_from_json("test.json")
     # print(test)
