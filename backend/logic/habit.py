@@ -3,13 +3,17 @@ from functools import singledispatchmethod
 
 
 class Habit:
-    def __init__(self, title):
+    def __init__(self, title, calendar=dict()):
         self.title = title
+        self.calendar = calendar  # {year: {month: {day}}}
         self.streak = 0
-        self.calendar = dict()  # {year: {month: {day}}}
+        self.updateStreak()
 
     def __str__(self):
         return f"<Habit: name='{self.title}', streak={self.streak}, calendar={self.calendar}>"
+
+    def toDict(self):
+        return {"title": self.title, "calendar": self.calendar}
 
     def toggleDate(self, y, m, d):
         if self.isDateInCalendar(y, m, d):
@@ -28,6 +32,7 @@ class Habit:
                 self.calendar[y] = {m: {d}}
 
         self.updateStreak()
+        print(self)
 
     def toggleToday(self):
         today = dt.date.today()
@@ -46,6 +51,7 @@ class Habit:
         )
 
     def updateStreak(self):
+        # NOTE: optimize this later
         cur_day = dt.date.today()
         self.streak = 0
 

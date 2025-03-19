@@ -1,11 +1,12 @@
 import datetime as dt
+import json
 from habit import Habit
 
 
 class HabitTracker:
-    def __init__(self):
+    def __init__(self, habits=[]):
         # NOTE: linked list might be better (do some research)
-        self.habits = []
+        self.habits = habits
 
     def __str__(self):
         output = "Tracker:[\n"
@@ -14,6 +15,12 @@ class HabitTracker:
             output += f"\t{str(counter)}:\t{str(habit)}\n"
             counter += 1
         output += "]"
+        return output
+
+    def toDict(self):
+        output = {"habits": []}
+        for habit in self.habits:
+            output["habits"].append(habit.toDict())
         return output
 
     def addHabit(self, title):
@@ -46,7 +53,34 @@ class HabitTracker:
             print(f"[-] updateHabitTitle -- Invalid index: {idx}")
             return
 
-        self.habits[idx].updateTitle(title)
+        self.habits[idx - 1].updateTitle(title)
+
+
+def convert_to_serializable(obj):
+    if isinstance(obj, set):
+        return list(obj)
+    raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
+
+
+def save_dict_to_json(data, filename):
+    with open(filename, "w") as fd:
+        json.dump(data, fd, indent=4, default=convert_to_serializable)
+
+
+def load_dict_from_json(filename):
+    with open(filename, "r") as fd:
+        data = json.load(fd)
+
+        habit_list = []
+        for entry in data["habits"]:
+            new_habit = Habit(entry["title"])
+            for y in entry["calendar"]:
+                for m in entry["calendar"][y]:
+                    for d in entry["calendar"][y][m]:
+                        new_habit.toggleDate(int(y), int(m), int(d))
+            habit_list.append(new_habit)
+
+        return HabitTracker(habit_list)
 
 
 if __name__ == "__main__":
@@ -54,7 +88,21 @@ if __name__ == "__main__":
     test.addHabit("Jogging")
     test.addHabit("Coding")
     print(test)
-    test.removeHabit(0)
-    test.toggleHabitToday(7)
-    test.toggleHabitToday(2)
+    print("BREAKPOINT")
+    # print(test)
+    # test.removeHabit(0)
+    # test.toggleHabitToday(7)
+    # test.toggleHabitDate(1, 2025, 3, 17)
+    test.toggleHabitToday(1)
+    print("BREAKPOINT")
     print(test)
+
+    test_dict = test.toDict()
+    # print(test_dict)
+    json_string = json.dumps(test_dict, default=convert_to_serializable)
+    print(json_string)
+    save_dict_to_json(test_dict, "test.json")
+
+    test2 = load_dict_from_json("test.json")
+    # print(test)
+    print(test2)
