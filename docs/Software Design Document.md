@@ -41,7 +41,7 @@ The initial version will focus on the core features necessary for a Minimum Viab
 
 - **Framework**: React with Vite
 - **Styling**: Tailwind CSS with custom CSS for specific components
-- **UI Components**: MUI
+- **UI Components**: MUI (Material UI)
 - **State Management**: React's built-in state management tools (`useState`, `useContext`) for local component state. A custom context provider will be used for global state (e.g., user authentication status)
 
 ### 2.2. Backend
