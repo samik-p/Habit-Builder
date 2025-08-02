@@ -65,8 +65,6 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-The backend server should now be running at `http://127.0.0.1:8000/`.
-
 ### 2\. Frontend Setup
 
 ```bash
@@ -79,8 +77,6 @@ npm install
 # Start the frontend development server
 npm run dev
 ```
-
-The frontend server should now be running at `http://127.0.0.1:5173/`.
 
 ## 📂 Project Structure
 
@@ -97,7 +93,3 @@ habit_builder/
 │   └── package.json
 └── README.md
 ```
-
-## 📄 License
-
-This project is licensed under the MIT License. See the [LICENSE](https://www.google.com/search?q=LICENSE) file for details.
