@@ -8,33 +8,29 @@ import {
     Typography,
     Stack,
     Link,
-    // Snackbar and Alert are now managed by AuthContext
 } from '@mui/material';
-import { useAuth } from '../context/AuthContext'; // Import useAuth hook
+import { useAuth } from '../context/AuthContext';
 
-// Define the RegisterForm functional component
-const RegisterForm = () => {
-    // State variables to hold the input values
+// Define the RegisterForm functional component, now accepting a toggleForm prop
+const RegisterForm = ({ toggleForm }) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
-    // Use the authentication context, including the showSnackbar function from AuthContext
-    const { register, showSnackbar } = useAuth(); // Destructure showSnackbar from useAuth
+    const { register, showSnackbar } = useAuth();
 
-    // Event handler for form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (password !== confirmPassword) {
-            showSnackbar("The passwords you entered do not match.", "error"); // Use AuthContext's showSnackbar
+            showSnackbar("The passwords you entered do not match.", "error");
             return;
         }
 
         if (!username || !email || !password) {
-            showSnackbar("Please fill in all required fields.", "error"); // Use AuthContext's showSnackbar
+            showSnackbar("Please fill in all required fields.", "error");
             return;
         }
 
@@ -43,17 +39,14 @@ const RegisterForm = () => {
         try {
             const success = await register(username, email, password);
             if (success) {
-                // Clear form fields on successful registration
                 setUsername('');
                 setEmail('');
                 setPassword('');
                 setConfirmPassword('');
-                // The AuthContext has already shown a success Snackbar
-            } else {
-                // The AuthContext has already shown an error Snackbar
+                // After successful registration, automatically switch to login form
+                toggleForm();
             }
         } catch (error) {
-            // Catch any unexpected errors not handled by AuthContext's register function
             console.error('Error during registration:', error);
             showSnackbar("An unexpected error occurred during registration.", "error");
         } finally {
@@ -138,10 +131,15 @@ const RegisterForm = () => {
                 </Stack>
             </form>
             <Typography variant="body2" align="center" mt={2}>
-                Already have an account? <Link href="/login" sx={{ color: 'blue' }}>Login here</Link>
+                Already have an account?{' '}
+                <Link
+                    component="button" // Render as a button for accessibility
+                    onClick={toggleForm} // Call the toggleForm function on click
+                    sx={{ color: 'blue', cursor: 'pointer' }} // Add cursor pointer for visual feedback
+                >
+                    Login here
+                </Link>
             </Typography>
-
-            {/* Snackbar is now managed globally by AuthContext */}
         </Box>
     );
 };

@@ -8,48 +8,38 @@ import {
     Typography,
     Stack,
     Link,
-    // Snackbar and Alert are now managed globally by AuthContext
 } from '@mui/material';
-import { useAuth } from '../context/AuthContext'; // Import useAuth hook
+import { useAuth } from '../context/AuthContext';
 
-// Define the LoginForm functional component
-const LoginForm = () => {
-    // State variables to hold the input values
+// Define the LoginForm functional component, now accepting a toggleForm prop
+const LoginForm = ({ toggleForm }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [isLoading, setIsLoading] = useState(false); // To manage loading state for the button
+    const [isLoading, setIsLoading] = useState(false);
 
-    // Use the authentication context, including the showSnackbar function
-    const { login, showSnackbar } = useAuth(); // Destructure showSnackbar from useAuth
+    const { login, showSnackbar } = useAuth();
 
-    // Event handler for form submission
     const handleSubmit = async (event) => {
-        event.preventDefault(); // Prevent default browser form submission
+        event.preventDefault();
 
-        // Basic client-side validation
         if (!username || !password) {
-            showSnackbar("Please enter both username and password.", "error"); // Use AuthContext's showSnackbar
+            showSnackbar("Please enter both username and password.", "error");
             return;
         }
 
-        setIsLoading(true); // Set loading state to true
+        setIsLoading(true);
 
         try {
             const success = await login(username, password);
             if (success) {
-                // Clear form fields on successful login
                 setUsername('');
                 setPassword('');
-                // The AuthContext has already shown a success Snackbar and updated auth state
-            } else {
-                // The AuthContext has already shown an error Snackbar
             }
         } catch (error) {
-            // Catch any unexpected errors not handled by AuthContext's login function
             console.error('Error during login:', error);
             showSnackbar("An unexpected error occurred during login.", "error");
         } finally {
-            setIsLoading(false); // Reset loading state
+            setIsLoading(false);
         }
     };
 
@@ -106,10 +96,15 @@ const LoginForm = () => {
                 </Stack>
             </form>
             <Typography variant="body2" align="center" mt={2}>
-                Don't have an account? <Link href="/register" sx={{ color: 'blue' }}>Register here</Link>
+                Don't have an account?{' '}
+                <Link
+                    component="button" // Render as a button for accessibility
+                    onClick={toggleForm} // Call the toggleForm function on click
+                    sx={{ color: 'blue', cursor: 'pointer' }} // Add cursor pointer for visual feedback
+                >
+                    Register here
+                </Link>
             </Typography>
-
-            {/* Snackbar is now managed globally by AuthContext */}
         </Box>
     );
 };

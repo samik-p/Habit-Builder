@@ -1,18 +1,23 @@
-// frontend/src/App.jsx
-import React from 'react';
+import React, { useState } from 'react'; // Import useState
 import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
-import Dashboard from './components/Dashboard'; // We'll create this next
-import { useAuth } from './context/AuthContext'; // Import useAuth hook
-import { Box, CircularProgress, Typography } from '@mui/material'; // For loading indicator
+import Dashboard from './components/Dashboard';
+import { useAuth } from './context/AuthContext';
+import { Box, CircularProgress, Typography } from '@mui/material';
 
 import './App.css';
 
 function App() {
-  const { isAuthenticated, loading } = useAuth(); // Get auth state from context
+  const { isAuthenticated, loading } = useAuth();
+  // New state to control which form is shown (true for Register, false for Login)
+  const [showRegisterForm, setShowRegisterForm] = useState(false);
+
+  // Function to toggle between login and registration forms
+  const toggleForm = () => {
+    setShowRegisterForm(prev => !prev);
+  };
 
   if (loading) {
-    // Show a loading spinner while authentication state is being determined
     return (
       <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
         <CircularProgress />
@@ -23,15 +28,14 @@ function App() {
 
   return (
     <div className="App">
-      {/* Conditionally render components based on authentication status */}
       {isAuthenticated ? (
-        <Dashboard /> // Show dashboard if logged in
+        <Dashboard />
       ) : (
-        // Show login or register forms if not logged in
-        // For simplicity, we'll just show LoginForm here.
-        // In a real app, you'd use React Router to switch between them.
-        <LoginForm />
-        // Or <RegisterForm /> if you want to default to registration
+        showRegisterForm ? (
+          <RegisterForm toggleForm={toggleForm} /> // Pass toggleForm to RegisterForm
+        ) : (
+          <LoginForm toggleForm={toggleForm} /> // Pass toggleForm to LoginForm
+        )
       )}
     </div>
   );
