@@ -8,87 +8,38 @@ import {
     Typography,
     Stack,
     Link,
-    Snackbar,
-    Alert
 } from '@mui/material';
+import { useAuth } from '../context/AuthContext';
 
-// Define the LoginForm functional component
-const LoginForm = () => {
-    // State variables to hold the input values
+// Define the LoginForm functional component, now accepting a toggleForm prop
+const LoginForm = ({ toggleForm }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [isLoading, setIsLoading] = useState(false); // To manage loading state for the button
+    const [isLoading, setIsLoading] = useState(false);
 
-    // State for Snackbar (MUI's toast equivalent)
-    const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState('');
-    const [snackbarSeverity, setSnackbarSeverity] = useState('info'); // 'success', 'error', 'warning', 'info'
+    const { login, showSnackbar } = useAuth();
 
-    const showSnackbar = (message, severity) => {
-        setSnackbarMessage(message);
-        setSnackbarSeverity(severity);
-        setSnackbarOpen(true);
-    };
-
-    const handleSnackbarClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setSnackbarOpen(false);
-    };
-
-    // Event handler for form submission
     const handleSubmit = async (event) => {
-        event.preventDefault(); // Prevent default browser form submission
+        event.preventDefault();
 
-        // Basic client-side validation
         if (!username || !password) {
             showSnackbar("Please enter both username and password.", "error");
             return;
         }
 
-        setIsLoading(true); // Set loading state to true
+        setIsLoading(true);
 
-        // Log the captured data (for now, we'll connect to the backend later)
-        console.log('Login Data:', { username, password });
-
-        // Simulate an API call (replace with actual fetch to backend later)
         try {
-            // In a real scenario, you'd make a fetch/axios call here:
-            // const response = await fetch('http://127.0.0.1:8000/api/token/', { // This is the JWT token endpoint
-            //   method: 'POST',
-            //   headers: {
-            //     'Content-Type': 'application/json',
-            //   },
-            //   body: JSON.stringify({ username, password }),
-            // });
-            // const data = await response.json();
-
-            // if (response.ok) {
-            //   // Store the token (e.g., in localStorage) and update global user state
-            //   // localStorage.setItem('accessToken', data.access);
-            //   // localStorage.setItem('refreshToken', data.refresh);
-            //   showSnackbar("Login Successful!", "success");
-            //   // Optionally redirect user to dashboard
-            //   setUsername('');
-            //   setPassword('');
-            // } else {
-            //   // Handle errors from the backend (e.g., invalid credentials)
-            //   const errorMessages = data.detail || Object.values(data).flat().join(' ');
-            //   showSnackbar(errorMessages || "Login failed. Please check your credentials.", "error");
-            // }
-
-            // For now, just simulate success after a delay
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            showSnackbar("Form Captured! Check console for captured data. Backend integration next!", "info");
-            setUsername('');
-            setPassword('');
-
+            const success = await login(username, password);
+            if (success) {
+                setUsername('');
+                setPassword('');
+            }
         } catch (error) {
-            console.error('Error during login simulation:', error);
-            showSnackbar("An error occurred. Unable to process login at this time.", "error");
+            console.error('Error during login:', error);
+            showSnackbar("An unexpected error occurred during login.", "error");
         } finally {
-            setIsLoading(false); // Reset loading state
+            setIsLoading(false);
         }
     };
 
@@ -145,19 +96,15 @@ const LoginForm = () => {
                 </Stack>
             </form>
             <Typography variant="body2" align="center" mt={2}>
-                Don't have an account? <Link href="/register" sx={{ color: 'blue' }}>Register here</Link>
+                Don't have an account?{' '}
+                <Link
+                    component="button" // Render as a button for accessibility
+                    onClick={toggleForm} // Call the toggleForm function on click
+                    sx={{ color: 'blue', cursor: 'pointer' }} // Add cursor pointer for visual feedback
+                >
+                    Register here
+                </Link>
             </Typography>
-
-            <Snackbar
-                open={snackbarOpen}
-                autoHideDuration={5000}
-                onClose={handleSnackbarClose}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-            >
-                <Alert onClose={handleSnackbarClose} severity={snackbarSeverity} sx={{ width: '100%' }}>
-                    {snackbarMessage}
-                </Alert>
-            </Snackbar>
         </Box>
     );
 };
